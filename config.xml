@@ -3,7 +3,7 @@
   <description>Enter data once, control how you share</description>
   <author href="http://phonegap.com" email="support@phonegap.com">PhoneGap Team</author>
   <content src="index.html"/>
-  <icon src="www/img/logo.png"/>
+  <icon src="www/img/logo.jpg"/>
   <preference name="DisallowOverscroll" value="true"/>
   <plugin name="cordova-plugin-battery-status" source="npm" spec="~1.2.4"/>
   <plugin name="cordova-plugin-camera" source="npm" spec="~2.4.1"/>
