@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+	  <script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/geturi.js"></script>
+	
+	<script type="text/javascript">
+    $(document).ready(function() {	
+	
+        var url = "http://use1id.com/use1idapp/www/json.php";
+		
+        $.getJSON(url, function(result) {
+		
+            console.log(result);
+			var data='<table class="table table-bordered"><tr><td>Name</td><td>Email</td><td>Address</td><td>Action</td></tr>';
+            $.each(result, function(i, field) {
+                var id = field.id;
+                var first_name = field.first_name;
+                var last_name = field.last_name;
+                var email = field.email;
+				var address = field.address;
+				data=data+'<tr><td>'+first_name +' '+ last_name +'</td><td>'+ email +'</td><td>'+address+'</td><td><a href="#">Edit</a> <a href="#">Delete</a></td></tr>';
+				
+               // $("#resultlist").append("<a class='item' href='index.html?id=" + id + "&First Name=" + first_name + "&last_name=" + last_name + "&email=" + email + "'><span class='item-note'><h2>" + first_name + "</h2></span>" + last_name + "<p>" + email + "</p></a>");
+				
+				
+            });
+			data=data+'</table>';
+			$("#resultlist").append(data);
+			
+			
+        });
+		
+		
+    });
+    </script>
+</head>
+   <body> 
+ <div class="bar bar-header bar-positive" style="margin-bottom:80px;background-color: gray">
+        <a href="index.html" class="button button-clear">Home</a>
+        <h1 class="title">Customer List</h1>
+    </div>
+	
+	<div id="resultlist" class="table-responsive"></div>
+   </body>
+</html>

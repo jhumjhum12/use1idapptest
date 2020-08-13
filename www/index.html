@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+* {box-sizing: border-box}
+
+/* Add padding to containers */
+.container {
+  padding: 16px;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password], input[type=email] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for the submit/register button */
+.registerbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity:1;
+}
+
+/* Add a blue text color to links */
+a {
+  color: dodgerblue;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
+}
+
+
+.btn-primary {
+    color: #fff;
+    background-color: #3097D1;
+    border-color: #2a88bd;
+	
+	.btn-block {
+    display: block;
+    width: 100%;
+</style>
+
+
+ 
+	  <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/geturi.js"></script>
+
+ <script type="text/javascript">
+        $(document).ready(function() {
+            $("#insert").click(function() {
+                var first_name = $("#first_name").val();
+                var last_name = $("#last_name").val();
+                var email = $("#email").val();
+				 var pass = $("#password").val();
+				  var address = $("#address").val();
+                var dataString = "first_name=" + first_name + "&last_name=" + last_name + "&email=" + email +"&pass="+ pass +"&address="+ address + "&insert=";
+                if ($.trim(first_name).length > 0 & $.trim(last_name).length > 0 & $.trim(email).length > 0) {
+                    $.ajax({
+                        type: "POST",
+                        url: "http://use1id.com/use1idapp/www/post.php",
+                        data: dataString,
+                        crossDomain: true,
+                        cache: false,
+                        beforeSend: function() {
+                            $("#insert").val('Connecting...');
+                        },
+                        success: function(data) {
+                            if (data == "success") {
+                                alert("inserted");
+                                $("#insert").val('submit');
+                            } else if (data == "error") {
+                                alert("error");
+                            }
+                        }
+                    });
+                }
+                return false;
+            });
+        });
+    </script>
+</head>
+   <body> 
+   
+<div class="container">
+<h1>Sign up for USE1ID</h1>
+    
+	  <hr>
+	  <a href="customerlist.html">Customerlist</a>
+    <hr>
+
+    <label for="first_name"><b>First Name</b></label>
+    <input type="text" name="first_name" id="first_name" class="form-control input-sm" placeholder="First Name">
+
+    <label for="last_name"><b>Last Name</b></label>
+   <input type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last Name">
+
+    <label for="email"><b>Email</b></label>
+    <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address">
+	
+	<label for="password"><b>Password</b></label>
+    <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password">
+	
+	<label for="address"><b>Address</b></label>
+    <input type="text" name="address" id="address" class="form-control input-sm" placeholder="address">
+    <hr>
+
+   
+    <input type="button" id="insert" value="Register" class="btn btn-primary btn-block">
+	
+	
+	<div id='response'></div>
+  </div>
+
+    <br/>
+    <br/>
+        
+    </div>
+   </body>
+</html>
