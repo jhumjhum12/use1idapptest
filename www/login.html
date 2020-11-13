@@ -1,6 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<style>
+
+  body.login-page nav {
+    display: none; }
+  body.login-page .login-form {
+    padding: 100px 0;
+    font-size: 15px; }
+    body.login-page .login-form form {
+      background: #fff;
+      max-width: 420px;
+      width: 100%;
+      display: block;
+      margin: 0 auto;
+      padding: 16px; }
+      body.login-page .login-form form .form-group {
+        margin: 0 0 8px 0; }
+        body.login-page .login-form form .form-group .control-label {
+          width: 100%;
+          display: block;
+          text-align: left;
+          padding: 0; }
+      body.login-page .login-form form .form-control {
+        padding: 5px 12px; }
+  body.login-page .login-actions {
+    color: #919191;
+    margin: 16px 0; }
+    body.login-page .login-actions p {
+      margin: 0; }
+
+
+</style>
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -10,54 +41,60 @@
 	<script type="text/javascript" src="js/geturi.js"></script>
 	
 	<script type="text/javascript">
-    $(document).ready(function() {	
-	
-        var url = "http://use1id.com/use1idapp/www/json.php";
-		
-        $.getJSON(url, function(result) {
-		
-            console.log(result);
-			var data='<table class="table table-bordered"><tr><td>Name</td><td>Email</td><td>Address</td><td>Action</td></tr>';
-            $.each(result, function(i, field) {
-                var id = field.id;
-                var first_name = field.first_name;
-                var last_name = field.last_name;
-                var email = field.email;
-				var address = field.address;
-				data=data+'<tr><td>'+first_name +' ' + last_name +'</td><td>'+ email + id +'</td><td>'+address+'</td><td><a href=edit.html?id=' + id + '&first_name=' + first_name + '&last_name=' + last_name + '&email=' + email + '&address=' + address +'>Edit</a> <a href="#">Delete</a></td></tr>';
-				
-               // $("#resultlist").append("<a class='item' href='index.html?id=" + id + "&First Name=" + first_name + "&last_name=" + last_name + "&email=" + email + "'><span class='item-note'><h2>" + first_name + "</h2></span>" + last_name + "<p>" + email + "</p></a>");
-				
-				
+    $(document).ready(function() {
+            $("#login").click(function() {
+			
+                
+                var email = $("#email").val();
+				 var pass = $("#password").val();
+				 
+                var dataString = "email=" + email +"&pass="+ pass + "&login=";
+                if ($.trim(email).length > 0 & $.trim(pass).length > 0) {
+                    $.ajax({
+                        type: "POST",
+                        url: "http://use1id.com/use1idapp/www/login.php",
+                        data: dataString,
+                        crossDomain: true,
+                        cache: false,
+                        beforeSend: function() {
+                            $("#insert").val('Connecting...');
+                        },
+                        success: function(data) {
+                            if (data == "success") {
+                               window.location.replace("http://use1id.com/use1idapp/www/welcome.html");
+                               // $("#insert").val('submit');
+                            } else if (data == "error") {
+                                alert("error");
+                            }
+                        }
+                    });
+                }
+                return false;
             });
-			data=data+'</table>';
-			$("#resultlist").append(data);
-			
-			
         });
-		
-		
-    });
     </script>
 </head>
    <body> 
+  
  <div class="bar bar-header bar-positive" style="margin-bottom:80px;background-color: gray">
         <a href="index.html" class="button button-clear">Home</a>
         <h1 class="title">Customer List</h1>
     </div>
-	<div class="form-group>
-	 <label for="email"><b>Email</b></label>
-    <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address">
-	</div>
+	 <div class="login-form" style="margin-top:80px;">
 	
-	<div class="form-group>
-	 <label for="email"><b>Email</b></label>
-    <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address">
+	<div class="form-group form-group-login">
+	<div class="login-inline inline-label">
+	 <label for="email"><b>Email</b></label></div>
+	 <div class="login-inline inline-field">
+    <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address"></div>
 	</div>
-	<div class="form-group>
-	<label for="password"><b>Password</b></label>
-    <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password">
+	<div class="form-group form-group-login">
+	<div class="login-inline inline-label">
+	<label for="password"><b>Password</b></label></div>
+	<div class="login-inline inline-field">
+    <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password"></div>
 	</div>
-	<input type="button" id="insert" value="Login" class="btn btn-primary btn-block">
+	<input type="button" id="login" value="Login" class="btn btn-primary btn-block">
+	</div>
    </body>
 </html>
