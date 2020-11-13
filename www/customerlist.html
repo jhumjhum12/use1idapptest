@@ -17,14 +17,14 @@
         $.getJSON(url, function(result) {
 		
             console.log(result);
-			var data='<table class="table table-bordered"><tr><td>Name</td><td>Email</td><td>Address</td><td>Action</td></tr>';
+			var data='<table class="table table-bordered"><tr><td><b>Name</b></td><td><b>Email</b></td><td><b>Action</b></td></tr>';
             $.each(result, function(i, field) {
                 var id = field.id;
                 var first_name = field.first_name;
                 var last_name = field.last_name;
                 var email = field.email;
-				var address = field.address;
-				data=data+'<tr><td>'+first_name +' '+ last_name +'</td><td>'+ email +'</td><td>'+address+'</td><td><a href="#">Edit</a> <a href="#">Delete</a></td></tr>';
+				
+				data=data+'<tr><td>'+first_name +' ' + last_name +'</td><td>'+ email + id +'</td><td><a href=edit.html?id=' + id + '&first_name=' + first_name + '&last_name=' + last_name + '&email=' + email +'>Edit</a> <a href="#">Delete</a></td></tr>';
 				
                // $("#resultlist").append("<a class='item' href='index.html?id=" + id + "&First Name=" + first_name + "&last_name=" + last_name + "&email=" + email + "'><span class='item-note'><h2>" + first_name + "</h2></span>" + last_name + "<p>" + email + "</p></a>");
 				
@@ -46,6 +46,6 @@
         <h1 class="title">Customer List</h1>
     </div>
 	
-	<div id="resultlist" class="table-responsive"></div>
+	<div id="resultlist" class="table-responsive" style="margin-top:50px;"></div>
    </body>
 </html>
